@@ -23,31 +23,25 @@
     </div>
 
     <script>
-        //ゼロを追加する
-        var addZero=function(value){
-            if(value < 10){
-                value = '0'+ value;
-            }
-            return value;
-        }
+        var start;//開始時刻を格納
 
-        //ボタンがクリックされた時の動作
         document.getElementById('start_stop').addEventListener('click',function(){
+            start = new Date();
+            setInterval(goTimer,10);
+        });
 
-            var now = new Date();
+        var goTimer = function(){
+            var now = new Date();//現在時刻を取得
+            var milli=now.getTime()-start.getTime();//現在時刻から開始時刻を引いた値を格納
+            var seconds=Math.floor(milli/1000);//
+            var minutes=Math.floor(seconds/60);//
+            var hours=Math.floor(minutes/60);//
 
-            var seconds = now.getSeconds();//秒を取得
-            seconds = addZero(seconds);
-
-            var minutes=now.getMinutes();//分を取得
-            minutes = addZero(minutes);
-
-            var hours=now.getHours();//時間を取得
-            hours = addZero(hours);
+            seconds = seconds - minutes*60;
+            minutes = minutes - hours*60;
 
             document.getElementById('timer').innerHTML=hours+':'+minutes+':'+seconds;
-
-        });
+        }
         
     </script>
     
